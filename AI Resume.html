@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yashwanth Neela - AI Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes gradientPulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .cyber-glow {
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
+    }
+    .message-animation {
+      animation: fadeIn 0.3s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-3xl bg-gray-800 rounded-xl shadow-2xl overflow-hidden cyber-glow">
+    <!-- Header -->
+    <div class="p-4 bg-gradient-to-r from-blue-600 to-purple-600">
+      <div class="flex items-center space-x-3">
+        <div class="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
+        <h1 class="text-xl font-bold text-white">Yashwanth Neela - AI Engineer Interface</h1>
+      </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div class="h-[60vh] overflow-y-auto p-4 space-y-4" id="chatWindow">
+      <!-- System Message -->
+      <div class="flex justify-start">
+        <div class="max-w-[80%] bg-gray-700 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+              🤖
+            </div>
+            <div>
+              <p class="text-blue-400 font-medium">AI Career Assistant</p>
+              <p class="text-gray-300 mt-2">Welcome to my interactive resume! Ask about:</p>
+              <div class="grid grid-cols-2 gap-2 mt-3">
+                <button onclick="showResponse('summary')" class="p-2 bg-gray-600 hover:bg-blue-600 rounded-lg text-sm text-gray-300 transition-all">
+                  Professional Summary
+                </button>
+                <button onclick="showResponse('skills')" class="p-2 bg-gray-600 hover:bg-blue-600 rounded-lg text-sm text-gray-300 transition-all">
+                  Technical Skills
+                </button>
+                <button onclick="showResponse('projects')" class="p-2 bg-gray-600 hover:bg-blue-600 rounded-lg text-sm text-gray-300 transition-all">
+                  AI Projects
+                </button>
+                <button onclick="showResponse('education')" class="p-2 bg-gray-600 hover:bg-blue-600 rounded-lg text-sm text-gray-300 transition-all">
+                  Education
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Action Bar -->
+    <div class="p-4 bg-gray-850 border-t border-gray-700">
+      <div class="flex items-center space-x-2">
+        <input
+          type="text"
+          placeholder="Ask about my qualifications..."
+          class="flex-1 p-2 bg-gray-700 rounded-lg text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          id="questionInput"
+          onkeypress="if(event.key === 'Enter') handleQuestion()"
+        >
+        <button onclick="handleQuestion()" class="p-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-all">
+          ⚡ Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Floating Card -->
+  <div class="fixed bottom-4 right-4 bg-gray-800 p-4 rounded-xl border border-gray-700">
+    <h2 class="text-blue-400 font-bold mb-2">🚀 Contact Protocol</h2>
+    <p class="text-gray-300">📧 neelayash223@gmail.com</p>
+    <p class="text-gray-300">📱 +1 (551) 359-9366</p>
+    <p class="text-gray-300">📍 Bayonne, New Jersey</p>
+  </div>
+
+<script>
+const responses = {
+  summary: `💡 <span class="text-blue-400">Professional Summary</span>
+          <div class="mt-2 text-gray-300">
+            <p>Innovative AI Engineer with expertise in prompt engineering and LLM optimization. Proven ability to design AI solutions that enhance user engagement and operational efficiency. Certified in advanced prompt engineering techniques with hands-on experience in GPT-4 and Claude implementations.</p>
+          </div>`,
+
+  skills: `🛠️ <span class="text-blue-400">Technical Arsenal</span>
+         <div class="mt-2 text-gray-300 grid grid-cols-2 gap-2">
+           <div class="p-2 bg-gray-700 rounded">GPT-4 & Claude API</div>
+           <div class="p-2 bg-gray-700 rounded">Python/JavaScript</div>
+           <div class="p-2 bg-gray-700 rounded">LangChain</div>
+           <div class="p-2 bg-gray-700 rounded">NLP Techniques</div>
+           <div class="p-2 bg-gray-700 rounded">RESTful APIs</div>
+           <div class="p-2 bg-gray-700 rounded">Prompt Optimization</div>
+         </div>`,
+
+  projects: `🚀 <span class="text-blue-400">AI Project Highlights</span>
+           <div class="mt-2 text-gray-300 space-y-2">
+             <p>▸ Automated Content Generation System<br>
+                <span class="text-sm text-gray-400">- Increased SEO traffic by 40% through optimized prompts</span></p>
+             <p>▸ Enterprise Chatbot Framework<br>
+                <span class="text-sm text-gray-400">- Reduced response time by 35% using chain-of-thought prompting</span></p>
+           </div>`,
+
+  education: `🎓 <span class="text-blue-400">Education</span>
+            <div class="mt-2 text-gray-300">
+              <p>M.S. Information Systems Technologies<br>
+                 <span class="text-gray-400">Wilmington University | GPA: 3.66</span></p>
+              <p class="mt-2">B.Tech Computer Science<br>
+                 <span class="text-gray-400">K L University, India</span></p>
+            </div>`
+};
+
+function showResponse(type) {
+  const chatWindow = document.getElementById('chatWindow');
+  const response = document.createElement('div');
+  response.className = 'flex justify-start mt-4 message-animation';
+  response.innerHTML = `
+    <div class="max-w-[80%] bg-gray-700 rounded-lg p-4">
+      <div class="flex items-start gap-3">
+        <div class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+          🧠
+        </div>
+        <div class="flex-1">
+          ${responses[type]}
+        </div>
+      </div>
+    </div>
+  `;
+  chatWindow.appendChild(response);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+function handleQuestion() {
+  const input = document.getElementById('questionInput');
+  const question = input.value.toLowerCase();
+  input.value = '';
+
+  if (question.includes('summary')) showResponse('summary');
+  else if (question.includes('skill')) showResponse('skills');
+  else if (question.includes('project')) showResponse('projects');
+  else if (question.includes('educat')) showResponse('education');
+  else showResponse('summary');
+}
+
+// Initial prompt
+setTimeout(() => showResponse('summary'), 500);
+</script>
+</body>
+</html>
